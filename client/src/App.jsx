@@ -4,8 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import LoginPage from './Auth/login'
 import SignUpPage from './Auth/signup'
-function App() {
+import Defaultpage from './Auth/defaultpage'
 
+
+function App() {
+  
   return (
     <div>
       <Router>
@@ -13,7 +16,8 @@ function App() {
           <Navbar></Navbar>
     
         <Routes>
-          <Route path='/' element={<Home/>} ></Route>
+          <Route path='/' element={<Defaultpage/>} ></Route>
+          <Route path='/home' element={<Home/>} ></Route>
           <Route path='/auth/login' element={<LoginPage/>} ></Route>
           <Route path='/auth/signup' element={<SignUpPage/>} ></Route>
         </Routes>

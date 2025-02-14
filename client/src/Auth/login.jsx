@@ -1,21 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import {useAuthDetails} from "../store/auth-details";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () =>{
     const [details,setDetails] = useState({
         email:'',
         password:''
     });
+    const navigate = useNavigate();
     const {loginUser} = useAuthDetails();
     const handleDetails = (e) =>{
             setDetails({...details, [e.target.name]: e.target.value});
 
     };
-    const handleLogin = async () =>{
-        console.log(details); 
+    const handleLogin = async () =>{ 
         const data = await loginUser(details.email,details.password);
         if(data.success){
-            console.log(data.message);
+            console.log('successfully logged in');
+            navigate('/home');
           }
           else{
             console.log(data.message);

@@ -15,7 +15,7 @@ export const useAuthDetails = create((set) => ({
       );
 
       const data = response.data;
-      console.log(data);
+
       if (response.status >= 200 && response.status < 300) {
         return { success: true, message: data.message };
       }
@@ -37,8 +37,6 @@ export const useAuthDetails = create((set) => ({
       );
 
       const data = response.data;
-      console.log(data);
-      
       if (response.status >= 200 && response.status < 300) {
         set({ user: data.user });
         return { success: true, message: data.message };
@@ -53,6 +51,7 @@ export const useAuthDetails = create((set) => ({
     try {
       await axios.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true });
       set({ user: null });
+      console.log('Logged out successfully');
     } catch (error) {
       console.error('Logout failed:', error);
     }

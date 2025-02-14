@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import useAuthDetails from "../store/auth-details";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUpPage = () =>{
     const [details,setDetails] = useState({
@@ -8,6 +10,8 @@ const SignUpPage = () =>{
             email:'',
             password:''
         });
+        const navigate = useNavigate();
+
         const {createUser} = useAuthDetails();
         const handleDetails = (e) =>{
           setDetails({...details, [e.target.name]: e.target.value});
@@ -15,11 +19,11 @@ const SignUpPage = () =>{
         };
 
         const handleSignUp = async () =>{
-          console.log(details);
           
           const data = await createUser(details.email,details.name,details.password);
           if(data.success){
             console.log(data.message);
+            navigate('/');
           }
           else{
             console.log(data.message);
