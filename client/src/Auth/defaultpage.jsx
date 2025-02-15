@@ -1,10 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import useAuth from "../store/useAuth";
+import useAuthDetails from "../store/auth-details";
 const Defaultpage = () => {
 
-    const {user,fetchUser} = useAuth();
+    const {user,fetchUser} = useAuthDetails();
 
     useEffect(()=>{
         fetchUser();    

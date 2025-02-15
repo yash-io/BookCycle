@@ -56,6 +56,15 @@ export const useAuthDetails = create((set) => ({
       console.error('Logout failed:', error);
     }
   },
+  fetchUser: async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true });
+      set({ user: response.data.user });
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  },
+  isLoggedIn: (state) => !!state.user,
 }));
 
 export default useAuthDetails;

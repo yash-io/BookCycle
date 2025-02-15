@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import LoginPage from './Auth/login'
 import SignUpPage from './Auth/signup'
 import Defaultpage from './Auth/defaultpage'
-
+import ProtectedRoute from './Auth/protectedroutes'
 
 function App() {
   
@@ -17,9 +17,14 @@ function App() {
     
         <Routes>
           <Route path='/' element={<Defaultpage/>} ></Route>
-          <Route path='/home' element={<Home/>} ></Route>
           <Route path='/auth/login' element={<LoginPage/>} ></Route>
           <Route path='/auth/signup' element={<SignUpPage/>} ></Route>
+
+          {/* Protected routes section */}
+          <Route element={<ProtectedRoute/>} >
+          <Route path='/home' element={<Home/>} ></Route>
+          </Route>
+          
         </Routes>
      
        </div>
