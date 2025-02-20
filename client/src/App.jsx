@@ -6,7 +6,8 @@ import LoginPage from './Auth/login'
 import SignUpPage from './Auth/signup'
 import Defaultpage from './Auth/defaultpage'
 import ProtectedRoute from './Auth/protectedroutes'
-
+import MaterialHub from './pages/freeMaterial'
+import PostMaterial from './pages/post-Material'
 function App() {
   
   return (
@@ -23,6 +24,8 @@ function App() {
           {/* Protected routes section */}
           <Route element={<ProtectedRoute/>} >
           <Route path='/home' element={<Home/>} ></Route>
+          <Route path='/free-materials' element={<MaterialHub/>}  ></Route>
+          <Route path='/post-material' element={<PostMaterial/>} ></Route>
           </Route>
           
         </Routes>

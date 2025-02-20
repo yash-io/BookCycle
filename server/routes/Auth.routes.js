@@ -8,6 +8,7 @@ router.post('/login',LoginAuth);
 router.post('/signup',SignupAuth);
 router.post('/logout',LogoutAuth);
 
+
 router.get('/user',jwtAuth,(req,res)=>{
     try{
         res.status(200).json({user:req.user});

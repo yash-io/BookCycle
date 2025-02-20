@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import axios from 'axios';
+
 export const useAuthDetails = create((set) => ({
   user: null,
 
@@ -9,14 +9,18 @@ export const useAuthDetails = create((set) => ({
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', 
-        { email, password, name }, 
-        { withCredentials: true } // Include cookies
-      );
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, name }),
+        credentials: 'include', // Include cookies
+      });
 
-      const data = response.data;
+      const data = await response.json();
 
-      if (response.status >= 200 && response.status < 300) {
+      if (response.ok) {
         return { success: true, message: data.message };
       }
       return { success: false, message: data.message || 'Signup failed' };
@@ -31,13 +35,18 @@ export const useAuthDetails = create((set) => ({
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', 
-        { email, password }, 
-        { withCredentials: true } // Include cookies
-      );
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include', // Include cookies
+      });
 
-      const data = response.data;
-      if (response.status >= 200 && response.status < 300) {
+      const data = await response.json();
+
+      if (response.ok) {
         set({ user: data.user });
         return { success: true, message: data.message };
       }
@@ -49,21 +58,40 @@ export const useAuthDetails = create((set) => ({
 
   logoutUser: async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true });
-      set({ user: null });
-      console.log('Logged out successfully');
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include', // Include cookies
+      });
+
+      if (response.ok) {
+        set({ user: null });
+        console.log('Logged out successfully');
+      } else {
+        console.error('Logout failed');
+      }
     } catch (error) {
       console.error('Logout failed:', error);
     }
   },
+
   fetchUser: async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/user", { withCredentials: true });
-      set({ user: response.data.user });
+      const response = await fetch('/api/auth/user', {
+        method: 'GET',
+        credentials: 'include', // Include cookies
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        set({ user: data.user });
+      } else {
+        console.error('Error fetching user');
+      }
     } catch (error) {
       console.error('Error fetching user:', error);
     }
   },
+
   isLoggedIn: (state) => !!state.user,
 }));
 
