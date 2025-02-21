@@ -3,6 +3,7 @@ import { create } from "zustand";
 const UseMaterials = create((set) => ({
   materials: [],
   setMaterials: (materials) => set({ materials }),
+  filterMaterials : (materials) =>set({materials}),
 
   uploadMaterial: async (materialData) => {
     try {

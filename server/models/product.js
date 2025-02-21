@@ -23,6 +23,10 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subject:{
+    type:String,
+    required:true,
+  },
   download_link: {
     type: String,
     required: false,

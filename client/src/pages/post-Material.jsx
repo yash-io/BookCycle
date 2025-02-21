@@ -34,153 +34,153 @@ const PostMaterial = () => {
     reader.readAsDataURL(file);
   };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      const processedData = {
-        ...formData,
-        price: formData.isFree ? 0 : Number(formData.price),
-      };
-    
-      console.log("Submitting:", processedData); // Debugging step
-    
-      try {
-        const response = await uploadMaterial(processedData);
-    
-        if (response.success==true) {
-          console.log("Material uploaded successfully");
-        } else {
-          console.error("Error in uploading material", response);
-        }
-      } catch (error) {
-        console.error("Upload failed", error);
-      }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const processedData = {
+      ...formData,
+      price: formData.isFree ? 0 : Number(formData.price),
     };
-    
-
+    try {
+      const response = await uploadMaterial(processedData);
+      if (response.success) {
+        console.log("Material uploaded successfully");
+      } else {
+        console.error("Error in uploading material", response);
+      }
+    } catch (error) {
+      console.error("Upload failed", error);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-900 fixed top-0 sticky flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Post Material</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-3xl">
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-gray-200">
+          Post Material
+        </h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Name */}
+          <div className="grid">
+            <label htmlFor="name" className="text-gray-700 dark:text-gray-300 font-bold">
               Material Name
             </label>
-            <div className="flex items-center border border-gray-300 rounded p-2">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full p-2 outline-none"
-                required
-              />
-            </div>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+              required
+            />
           </div>
-          <div className="mb-4">
-            <label htmlFor="materialType" className="block text-gray-700 font-bold mb-2">
+
+          {/* Material Type */}
+          <div className="grid">
+            <label htmlFor="materialType" className="text-gray-700 dark:text-gray-300 font-bold">
               Material Type
             </label>
-            <div className="flex items-center border border-gray-300 rounded p-2">
-              <select
-                id="materialType"
-                name="materialType"
-                value={formData.materialType}
-                onChange={handleChange}
-                className="w-full p-2 outline-none"
-                required
-              >
-                <option value="pdf">PDF</option>
-                <option value="ebook">eBook</option>
-                <option value="audiobook">Audiobook</option>
-              </select>
-            </div>
+            <select
+              id="materialType"
+              name="materialType"
+              value={formData.materialType}
+              onChange={handleChange}
+              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+              required
+            >
+              <option value="pdf">PDF</option>
+              <option value="ebook">eBook</option>
+              <option value="audiobook">Audiobook</option>
+            </select>
           </div>
-          <div className="mb-4">
-            <label htmlFor="price" className="block text-gray-700 font-bold mb-2">
+
+          {/* Price */}
+          <div className="grid">
+            <label htmlFor="price" className="text-gray-700 dark:text-gray-300 font-bold">
               Price
             </label>
-            <div className="flex items-center border border-gray-300 rounded p-2">
-              <input
-                type="number"
-                id="price"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                className="w-full p-2 outline-none"
-                required
-                disabled={formData.isFree}
-              />
-            </div>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+              required
+              disabled={formData.isFree}
+            />
           </div>
-          <div className="mb-4">
-            <label htmlFor="college" className="block text-gray-700 font-bold mb-2">
+
+          {/* College */}
+          <div className="grid">
+            <label htmlFor="college" className="text-gray-700 dark:text-gray-300 font-bold">
               College
             </label>
-            <div className="flex items-center border border-gray-300 rounded p-2">
-              <input
-                type="text"
-                id="college"
-                name="college"
-                value={formData.college}
-                onChange={handleChange}
-                className="w-full p-2 outline-none"
-                required
-              />
-            </div>
+            <input
+              type="text"
+              id="college"
+              name="college"
+              value={formData.college}
+              onChange={handleChange}
+              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+              required
+            />
           </div>
-          <div className="mb-4">
-            <label htmlFor="image" className="block text-gray-700 font-bold mb-2">
+
+          {/* Image Upload */}
+          <div className="grid">
+            <label htmlFor="image" className="text-gray-700 dark:text-gray-300 font-bold">
               Image
             </label>
-            <div className="flex items-center border border-gray-300 rounded p-2">
-              <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleImageChange}
-                className="w-full p-2 outline-none"
-                required
-              />
-            </div>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleImageChange}
+              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+              required
+            />
           </div>
-          <div className="mb-4">
-            <label htmlFor="download_link" className="block text-gray-700 font-bold mb-2">
-              Download Link
+
+          {/* Download Link */}
+          <div className="grid">
+            <label htmlFor="download_link" className="text-gray-700 dark:text-gray-300 font-bold">
+              {formData.isFree?'Download link':'Purchase Link'}
             </label>
-            <div className="flex items-center border border-gray-300 rounded p-2">
-              <input
-                type="url"
-                id="download_link"
-                name="download_link"
-                value={formData.download_link}
-                onChange={handleChange}
-                className="w-full p-2 outline-none"
-              />
-            </div>
+            <input
+              type="url"
+              id="download_link"
+              name="download_link"
+              value={formData.download_link}
+              onChange={handleChange}
+              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+            />
           </div>
-          <div className="mb-4 flex items-center">
+
+          {/* Is Free Checkbox - Full Width */}
+          <div className="grid grid-cols-[auto_1fr] items-center gap-2 col-span-1 sm:col-span-2">
             <input
               type="checkbox"
               id="isFree"
               name="isFree"
               checked={formData.isFree}
               onChange={handleChange}
-              className="mr-2"
+              className="w-5 h-5"
             />
-            <label htmlFor="isFree" className="text-gray-700 font-bold">
+            <label htmlFor="isFree" className="text-gray-700 dark:text-gray-300 font-bold">
               Is this material free?
             </label>
           </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300"
-          >
-            Post Material
-          </button>
+
+          {/* Submit Button - Full Width */}
+          <div className="col-span-1 sm:col-span-2">
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300"
+            >
+              Post Material
+            </button>
+          </div>
         </form>
       </div>
     </div>
