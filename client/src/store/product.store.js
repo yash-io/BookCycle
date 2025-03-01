@@ -1,4 +1,5 @@
 import { create } from "zustand";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const UseMaterials = create((set) => ({
   materials: [],
@@ -6,7 +7,7 @@ const UseMaterials = create((set) => ({
 
   fetchMaterials: async () => {
     try {
-      const response = await fetch("/api/materials/get-materials");
+      const response = await fetch(`${API_URL}/api/materials/get-materials`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -24,7 +25,7 @@ const UseMaterials = create((set) => ({
 
   uploadMaterial: async (materialData) => {
     try {
-      const response = await fetch("/api/materials/post-material", {
+      const response = await fetch(`${API_URL}/api/materials/post-material`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

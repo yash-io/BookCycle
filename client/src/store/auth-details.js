@@ -1,15 +1,15 @@
 import { create } from 'zustand';
 
+const API_URL = process.env.REACT_APP_API_URL;
 export const useAuthDetails = create((set) => ({
   user: null,
-
   createUser: async (email, name, password) => {
     if (!email || !name || !password) {
       return { success: false, message: 'Please fill all fields' };
     }
 
     try {
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch(`${API_URL}/api/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const useAuthDetails = create((set) => ({
     }
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const useAuthDetails = create((set) => ({
 
   logoutUser: async () => {
     try {
-      const response = await fetch('/api/auth/logout', {
+      const response = await fetch(`${API_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include', // Include cookies
       });
