@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: ["https://localhost:5173"],
+    origin: ["https://bookcycle-frontend.onrender.com/"],
     methods: ["GET", "POST", "PUT", "UPDATE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
