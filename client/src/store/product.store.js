@@ -2,8 +2,25 @@ import { create } from "zustand";
 
 const UseMaterials = create((set) => ({
   materials: [],
-  setMaterials: (materials) => set({ materials }),
-  filterMaterials : (materials) =>set({materials}),
+  filteredMaterials: [],
+
+  fetchMaterials: async () => {
+    try {
+      const response = await fetch("/api/materials/get-materials");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Fetched Materials from Backend");
+      set({ materials: data, filteredMaterials: data }); // Set both original and filtered data
+    } catch (error) {
+      console.error("Error fetching materials:", error.message);
+    }
+  },
+
+  setFilteredMaterials: (filteredMaterials) => {
+    set({ filteredMaterials });
+  },
 
   uploadMaterial: async (materialData) => {
     try {
@@ -20,26 +37,18 @@ const UseMaterials = create((set) => ({
       }
 
       const data = await response.json();
-      return data;
+      console.log("Material uploaded successfully:", data);
+
+      // Update the materials list after upload
+      set((state) => ({
+        materials: [...state.materials, data],
+        filteredMaterials: [...state.filteredMaterials, data],
+      }));
+
+      return { success: true, data };
     } catch (error) {
       console.error("Upload error:", error.message);
       return { success: false, error: error.message };
-    }
-  },
-
-  fetchMaterials: async () => {
-    try {
-      const response = await fetch("/api/materials/get-materials");
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Fetched Materials from Backend:", data);
-      set({ materials: data });
-    } catch (error) {
-      console.error("Error fetching materials:", error.message);
     }
   },
 }));

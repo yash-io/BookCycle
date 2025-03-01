@@ -24,6 +24,7 @@ const LoginPage = () => {
             navigate("/home");
         } else {
             console.log(data.message);
+            window.alert(data.message);
         }
     };
 
