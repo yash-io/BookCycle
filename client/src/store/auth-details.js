@@ -1,8 +1,9 @@
 import { create } from 'zustand';
+const API_URL = import.meta.env.VITE_API_URL;
 
-const API_URL = process.env.REACT_APP_API_URL;
 export const useAuthDetails = create((set) => ({
   user: null,
+
   createUser: async (email, name, password) => {
     if (!email || !name || !password) {
       return { success: false, message: 'Please fill all fields' };
@@ -76,7 +77,7 @@ export const useAuthDetails = create((set) => ({
 
   fetchUser: async () => {
     try {
-      const response = await fetch('/api/auth/user', {
+      const response = await fetch(`${API_URL}/api/auth/user`, {
         method: 'GET',
         credentials: 'include', // Include cookies
       });

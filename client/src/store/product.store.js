@@ -1,5 +1,6 @@
 import { create } from "zustand";
-const API_URL = process.env.REACT_APP_API_URL;
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const UseMaterials = create((set) => ({
   materials: [],
@@ -39,17 +40,8 @@ const UseMaterials = create((set) => ({
 
       const data = await response.json();
       console.log("Material uploaded successfully:", data);
-
-      // Update the materials list after upload
-      set((state) => ({
-        materials: [...state.materials, data],
-        filteredMaterials: [...state.filteredMaterials, data],
-      }));
-
-      return { success: true, data };
     } catch (error) {
-      console.error("Upload error:", error.message);
-      return { success: false, error: error.message };
+      console.error("Error uploading material:", error.message);
     }
   },
 }));
