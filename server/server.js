@@ -3,6 +3,7 @@ import ConnectDB from './config/db.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 import authRouter from './routes/Auth.routes.js';
 import materialRouter from './routes/material.routes.js';
 
@@ -11,7 +12,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: "https://bookcycle-frontend.onrender.com",
+    origin: ["https://bookcycle-frontend.onrender.com", "https://localhost:5173"],
     methods: ["GET", "POST", "PUT", "UPDATE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -27,8 +28,12 @@ const PORT = process.env.PORT || 5000;
 app.use('/api/auth', authRouter);
 app.use('/api/materials', materialRouter);
 
-app.get('/', (req, res) => {
-  res.send('Welcome to BookCycle API');
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// The "catchall" handler: for any request that doesn't match one above, send back index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
