@@ -13,9 +13,7 @@ const Defaultpage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      navigate("/auth/login");
-    }
+    
   }, [user, fetchUser]);
 
   return (
