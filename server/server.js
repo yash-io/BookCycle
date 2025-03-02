@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import authRouter from './routes/Auth.routes.js';
 import materialRouter from './routes/material.routes.js';
 
@@ -29,6 +30,8 @@ app.use('/api/auth', authRouter);
 app.use('/api/materials', materialRouter);
 
 // Serve static files from the React app
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // The "catchall" handler: for any request that doesn't match one above, send back index.html
