@@ -13,6 +13,10 @@ const Defaultpage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+if(user)
+{
+nagviate('/home');
+}
     
   }, [user, fetchUser]);
 
