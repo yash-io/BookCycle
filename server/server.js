@@ -16,7 +16,7 @@ app.use(
     origin: ["https://bookcycle-frontend.onrender.com", "https://localhost:5173"],
     methods: ["GET", "POST", "PUT", "UPDATE"],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization","Set-Cookie"],
   })
 );
 app.use(express.json());
