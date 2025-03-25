@@ -1,34 +1,34 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import useAuthDetails from "../store/auth-details";
 
 const Defaultpage = () => {
   const { user, fetchUser } = useAuthDetails();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);  // Prevent redirection before fetching user
 
+  // Fetch user session on mount
   useEffect(() => {
-    fetchUser();
+    const checkUser = async () => {
+      await fetchUser();
+      setLoading(false); // Ensure user is fetched before checking navigation
+    };
+    checkUser();
   }, []);
 
-  const navigate = useNavigate();
-
+  // Redirect if user exists
   useEffect(() => {
-if(user)
-{
-navigate('/home');
-}
-    
-  }, [user]);
+    if (!loading && user) {
+      navigate('/home');
+    }
+  }, [user, loading, navigate]); // Ensure navigation only runs after loading
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md text-center">
         <h1 className="text-2xl font-bold mb-4 text-gray-800">Welcome to Bookcycle</h1>
         <p className="text-gray-600 mb-6">
-          Bookcycle is your go-to platform for accessing a wide range of educational materials and resources. Whether you're looking for free or paid content, we have something for everyone.
-        </p>
-        <p className="text-gray-600 mb-6">
-          Explore our extensive collection of books, PDFs, eBooks, and audiobooks. Join our community to share and discover valuable resources that can help you in your academic and professional journey.
+          Bookcycle is your go-to platform for accessing a wide range of educational materials and resources.
         </p>
         <button
           onClick={() => navigate("/auth/login")}
@@ -43,9 +43,6 @@ navigate('/home');
         >
           Create an Account
         </button>
-        <p className="text-gray-600 mt-6">
-          By creating an account, you can access exclusive content, track your progress, and connect with other learners. Join us today and start your learning journey with Bookcycle!
-        </p>
       </div>
     </div>
   );
