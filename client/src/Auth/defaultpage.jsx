@@ -15,7 +15,7 @@ const Defaultpage = () => {
   useEffect(() => {
 if(user)
 {
-nagviate('/home');
+navigate('/home');
 }
     
   }, [user, fetchUser]);
