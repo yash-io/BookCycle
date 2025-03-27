@@ -5,23 +5,43 @@ import useAuthDetails from "../store/auth-details";
 const Defaultpage = () => {
   const { user, fetchUser } = useAuthDetails();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);  // Prevent redirection before fetching user
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // Add error state
 
-  // Fetch user session on mount
   useEffect(() => {
     const checkUser = async () => {
-      await fetchUser();
-      setLoading(false); // Ensure user is fetched before checking navigation
+      try {
+        await fetchUser();
+        setLoading(false);
+      } catch (err) {
+        setError(err); // Capture error
+        setLoading(false);
+      }
     };
     checkUser();
-  }, []);
+  }, [fetchUser]);
 
-  // Redirect if user exists
   useEffect(() => {
     if (!loading && user) {
       navigate('/home');
     }
-  }, [user, loading, navigate]); // Ensure navigation only runs after loading
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <p className="text-white">Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <p className="text-red-500">Error: {error.message || "Failed to load"}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
