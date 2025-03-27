@@ -6,24 +6,24 @@ const Defaultpage = () => {
   const { user, fetchUser } = useAuthDetails();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // Add error state
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const checkUser = async () => {
       try {
         await fetchUser();
-        setLoading(false);
       } catch (err) {
-        setError(err); // Capture error
-        setLoading(false);
+        setError(err);
+      } finally {
+        setLoading(false); // Always set loading to false
       }
     };
     checkUser();
-  }, [fetchUser]);
+  }, []);
 
   useEffect(() => {
     if (!loading && user) {
-      navigate('/home');
+      navigate("/home");
     }
   }, [user, loading, navigate]);
 
