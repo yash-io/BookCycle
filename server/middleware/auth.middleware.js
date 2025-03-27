@@ -25,7 +25,7 @@ const LoginAuth = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // Prevents JavaScript access (XSS protection)
       secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-      sameSite: "Strict", // Prevent CSRF
+      sameSite: "None", // Prevent CSRF
       maxAge: 3600000, // 1 hour
     });
 
@@ -71,7 +71,7 @@ const SignupAuth = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
+      sameSite: "None",
       maxAge: 3600000,
     });
 
