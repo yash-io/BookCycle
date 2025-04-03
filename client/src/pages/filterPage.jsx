@@ -3,6 +3,7 @@ import UseMaterials from "../store/product.store";
 
 const FilterPage = () => {
   const { materials, fetchMaterials, setFilteredMaterials } = UseMaterials();
+  const [clickFilter, setClickFilter] = useState(false);
   const [filters, setFilters] = useState({
     isFree: "",
     name: "",
@@ -20,6 +21,10 @@ const FilterPage = () => {
       [name]: value,
     }));
   };
+
+  const changeClick = () =>{
+    setClickFilter(!clickFilter);
+  }
 
   useEffect(() => {
     const applyFilters = () => {
@@ -52,7 +57,10 @@ const FilterPage = () => {
   return (
     <div className="fixed left-0 top-16 container m-auto w-full md:w-1/5 bg-gray-900 text-white rounded-sm p-4 shadow-lg border border-gray-700 dark:bg-gray-800">
       <div className="flex flex-col">
-        <h2 className="text-xl font-semibold mb-4 text-white">Filters</h2>
+        (!clickFilter)? (<h2 className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4" onClick={changeClick} > Filter </h2>)
+        :(
+        <h2 className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4" onClick={changeClick} >Apply </h2>
+        
         <label className="mb-4">
           <span className="text-gray-300">Free or Paid:</span>
           <select
@@ -90,6 +98,7 @@ const FilterPage = () => {
             <option value="audiobook">Audiobook</option>
           </select>
         </label>
+        )
       </div>
     </div>
   );
