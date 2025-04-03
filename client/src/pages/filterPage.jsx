@@ -57,17 +57,17 @@ const FilterPage = () => {
 
   return (
     <div className="fixed left-0 top-16 container m-auto w-full md:w-1/5 bg-gray-900 text-white rounded-sm p-4 shadow-lg border border-gray-700 dark:bg-gray-800">
-      <div className="flex flex-col">
-        {clickFilter ? (
-          <>
-            <h2
-              className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4 cursor-pointer"
-              onClick={changeClick}
-            >
-              Apply
-            </h2>
+      <div className="flex flex-col items-center"> {/* Center content */}
+        <h2
+          className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-4 py-2 cursor-pointer w-32 md:w-auto text-center"
+          onClick={changeClick}
+        >
+          {clickFilter ? "Apply" : "Filter"}
+        </h2>
 
-            <label className="mb-4">
+        {clickFilter && (
+          <>
+            <label className="mb-4 w-full">
               <span className="text-gray-300">Free or Paid:</span>
               <select
                 name="isFree"
@@ -80,7 +80,7 @@ const FilterPage = () => {
               </select>
             </label>
 
-            <label className="mb-4">
+            <label className="mb-4 w-full">
               <span className="text-gray-300">Subject:</span>
               <input
                 type="text"
@@ -91,7 +91,7 @@ const FilterPage = () => {
               />
             </label>
 
-            <label className="mb-4">
+            <label className="mb-4 w-full">
               <span className="text-gray-300">Material Type:</span>
               <select
                 name="materialType"
@@ -105,13 +105,6 @@ const FilterPage = () => {
               </select>
             </label>
           </>
-        ) : (
-          <h2
-            className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4 cursor-pointer"
-            onClick={changeClick}
-          >
-            Filter
-          </h2>
         )}
       </div>
     </div>
