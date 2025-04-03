@@ -11,7 +11,7 @@ const FilterPage = () => {
   });
 
   useEffect(() => {
-    fetchMaterials(); // Fetch materials once on mount
+    fetchMaterials(); // Fetch materials only once on mount
   }, []);
 
   const handleFilterChange = (e) => {
@@ -22,9 +22,9 @@ const FilterPage = () => {
     }));
   };
 
-  const changeClick = () =>{
+  const changeClick = () => {
     setClickFilter(!clickFilter);
-  }
+  };
 
   useEffect(() => {
     const applyFilters = () => {
@@ -47,58 +47,72 @@ const FilterPage = () => {
 
       setFilteredMaterials(filteredMaterials);
     };
+
     const timeout = setTimeout(() => {
       applyFilters();
-    }, 300); 
+    }, 300); // Debounce filtering
 
     return () => clearTimeout(timeout);
-  }, [filters, materials]);
+  }, [filters, materials, setFilteredMaterials]);
 
   return (
     <div className="fixed left-0 top-16 container m-auto w-full md:w-1/5 bg-gray-900 text-white rounded-sm p-4 shadow-lg border border-gray-700 dark:bg-gray-800">
       <div className="flex flex-col">
-        (!clickFilter)? (<h2 className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4" onClick={changeClick} > Filter </h2>)
-        :(
-        <h2 className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4" onClick={changeClick} >Apply </h2>
-        
-        <label className="mb-4">
-          <span className="text-gray-300">Free or Paid:</span>
-          <select
-            name="isFree"
-            onChange={handleFilterChange}
-            className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
-          >
-            <option value="">All</option>
-            <option value="true">Free</option>
-            <option value="false">Paid</option>
-          </select>
-        </label>
+        {clickFilter ? (
+          <>
+            <h2
+              className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4 cursor-pointer"
+              onClick={changeClick}
+            >
+              Apply
+            </h2>
 
-        <label className="mb-4">
-          <span className="text-gray-300">Subject:</span>
-          <input
-            type="text"
-            name="name"
-            className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
-            onChange={handleFilterChange}
-            placeholder="Search by name..."
-          />
-        </label>
+            <label className="mb-4">
+              <span className="text-gray-300">Free or Paid:</span>
+              <select
+                name="isFree"
+                onChange={handleFilterChange}
+                className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
+              >
+                <option value="">All</option>
+                <option value="true">Free</option>
+                <option value="false">Paid</option>
+              </select>
+            </label>
 
-        <label className="mb-4">
-          <span className="text-gray-300">Material Type:</span>
-          <select
-            name="materialType"
-            onChange={handleFilterChange}
-            className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
+            <label className="mb-4">
+              <span className="text-gray-300">Subject:</span>
+              <input
+                type="text"
+                name="name"
+                className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
+                onChange={handleFilterChange}
+                placeholder="Search by name..."
+              />
+            </label>
+
+            <label className="mb-4">
+              <span className="text-gray-300">Material Type:</span>
+              <select
+                name="materialType"
+                onChange={handleFilterChange}
+                className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
+              >
+                <option value="">All</option>
+                <option value="pdf">PDF</option>
+                <option value="ebook">eBook</option>
+                <option value="audiobook">Audiobook</option>
+              </select>
+            </label>
+          </>
+        ) : (
+          <h2
+            className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-2 py-4 cursor-pointer"
+            onClick={changeClick}
           >
-            <option value="">All</option>
-            <option value="pdf">PDF</option>
-            <option value="ebook">eBook</option>
-            <option value="audiobook">Audiobook</option>
-          </select>
-        </label>
-        )
+            Filter
+          </h2>
+        )}
       </div>
     </div>
   );
