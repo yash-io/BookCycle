@@ -11,7 +11,7 @@ const FilterPage = () => {
   });
 
   useEffect(() => {
-    fetchMaterials(); // Fetch materials only once on mount
+    fetchMaterials();
   }, []);
 
   const handleFilterChange = (e) => {
@@ -50,21 +50,23 @@ const FilterPage = () => {
 
     const timeout = setTimeout(() => {
       applyFilters();
-    }, 300); // Debounce filtering
+    }, 300);
 
     return () => clearTimeout(timeout);
   }, [filters, materials, setFilteredMaterials]);
 
   return (
-    <div className="fixed left-0 top-16 container m-auto w-full md:w-1/5 bg-gray-900 text-white rounded-sm p-2 md:p-4 shadow-lg border border-gray-700 dark:bg-gray-800">
-      <div className="flex flex-col items-center"> {/* Center content */}
+    <div className="w-full bg-gray-900 text-white rounded-sm p-4 shadow-lg border border-gray-700 dark:bg-gray-800 md:min-h-screen">
+      <div className="flex flex-col">
+        {/* Toggle Filter Button */}
         <h2
-          className="text-xl font-semibold mb-2 text-white border-2 border-white rounded-sm px-4 py-2 cursor-pointer w-32 md:w-auto text-center"
+          className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-4 py-2 cursor-pointer w-32 md:w-full text-center"
           onClick={changeClick}
         >
-          {clickFilter ? "Apply" : "Filter"}
+          {clickFilter ? "Apply Filters" : "Open Filters"}
         </h2>
 
+        {/* Filters Section */}
         {clickFilter && (
           <>
             <label className="mb-4 w-full">
