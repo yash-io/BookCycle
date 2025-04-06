@@ -47,13 +47,37 @@ const FilterPage = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-md shadow-md border border-gray-300 dark:border-gray-700 p-4 md:sticky md:top-6 max-h-full overflow-y-auto md:h-[calc(100vh-5rem)]">
-      <h2
-        className="text-lg font-semibold text-gray-800 dark:text-white mb-4 cursor-pointer md:cursor-default md:mb-6"
-        onClick={() => !clickFilter && setClickFilter(true)}
-      >
+      {/* Mobile header with close */}
+      <div className="flex justify-between items-center mb-4 md:hidden">
+        <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+          Filters
+        </h2>
+        {clickFilter && (
+          <button
+            onClick={() => setClickFilter(false)}
+            className="text-sm text-blue-600 dark:text-blue-400 underline"
+          >
+            Close
+          </button>
+        )}
+      </div>
+
+      {/* Desktop header */}
+      <h2 className="hidden md:block text-lg font-semibold text-gray-800 dark:text-white mb-6">
         Filters
       </h2>
 
+      {/* Show Filter Button */}
+      {!clickFilter && (
+        <button
+          className="md:hidden bg-blue-600 text-white px-4 py-2 rounded-md w-full"
+          onClick={() => setClickFilter(true)}
+        >
+          Show Filters
+        </button>
+      )}
+
+      {/* Filters */}
       {clickFilter || window.innerWidth >= 768 ? (
         <div className="space-y-6">
           {/* Free or Paid */}
@@ -72,7 +96,7 @@ const FilterPage = () => {
             </select>
           </div>
 
-          {/* Name */}
+          {/* Subject */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Subject Name
@@ -103,14 +127,7 @@ const FilterPage = () => {
             </select>
           </div>
         </div>
-      ) : (
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded-md w-full mt-4"
-          onClick={() => setClickFilter(true)}
-        >
-          Show Filters
-        </button>
-      )}
+      ) : null}
     </div>
   );
 };
