@@ -22,7 +22,7 @@ const MaterialHub = () => {
       {/* Mobile Filter Button */}
       <button
         onClick={() => setShowFilter(!showFilter)}
-        className="md:hidden fixed top-20 left-4 bg-blue-600 text-white px-4 py-2 rounded shadow-lg z-50"
+        className="md:hidden absolute top-20 left-4 bg-blue-600 text-white px-4 py-2 rounded shadow-lg z-50"
       >
         {showFilter ? "Close Filter" : "Open Filter"}
       </button>
