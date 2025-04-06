@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gradient-to-r from-blue-900 via-gray-900 to-blue-950 p-4 border-b-2 border-white sticky  top-0 z-50 shadow-lg">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-center relative z-50">
         <h1 className="text-3xl font-bold text-white tracking-widest transition-all duration-300 hover:scale-110">
         𝔹𝕠𝕠𝕜𝕤𝕙𝕒𝕣𝕖
         </h1>
