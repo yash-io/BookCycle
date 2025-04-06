@@ -48,7 +48,7 @@ const Navbar = () => {
 
         {/* Mobile Dropdown */}
         <div
-          className={`md:hidden relative z-50 top-16 left-0 w-full bg-blue-950 p-4 rounded-b-lg transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`md:hidden relative top-16 left-0 w-full bg-blue-950 p-4 rounded-b-lg transition-all duration-300 ease-in-out overflow-hidden ${
             isOpen ? "opacity-100 max-h-96" : "opacity-0 max-h-0"
           }`}
         >
