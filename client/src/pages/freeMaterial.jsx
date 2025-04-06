@@ -29,12 +29,13 @@ const MaterialHub = () => {
 
       {/* Sidebar Filter - Normal on Desktop, Overlay on Mobile */}
       <div
-        className={`fixed top-0 left-0 w-3/4 sm:w-2/4 h-full bg-gray-900 text-white shadow-lg p-4 transition-transform transform ${
-          showFilter ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:relative md:w-1/4 lg:w-1/5 md:mr-6 md:h-auto md:p-0`}
-      >
-        <FilterPage />
-      </div>
+  className={`fixed top-0 left-0 w-3/4 sm:w-2/4 h-full bg-gray-900 text-white shadow-lg p-4 transition-transform transform z-40
+    ${showFilter ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0 md:relative md:w-1/4 lg:w-1/5 md:mr-6 md:h-auto md:p-0 md:z-0`}
+>
+  <FilterPage />
+  </div>
+
 
       {/* Main Content */}
       <div className="flex-1">
