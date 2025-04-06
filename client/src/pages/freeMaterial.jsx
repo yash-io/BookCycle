@@ -1,116 +1,35 @@
-import React, { useEffect, useState } from "react";
-import UseMaterials from "../store/product.store";
+import React, { useEffect, useState } from "react"; import MaterialCard from "./materialCard"; import UseMaterials from "../store/product.store"; import FilterPage from "./filterPage"; import Loading from "../components/isLoading";
 
-const FilterPage = () => {
-  const { materials, fetchMaterials, setFilteredMaterials } = UseMaterials();
-  const [clickFilter, setClickFilter] = useState(false);
-  const [filters, setFilters] = useState({
-    isFree: "",
-    name: "",
-    materialType: "",
-  });
+const MaterialHub = () => { const { materials, fetchMaterials, filteredMaterials } = UseMaterials(); const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetchMaterials();
-  }, []);
+useEffect(() => { fetchMaterials(); }, [fetchMaterials]);
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
-  };
+useEffect(() => { setIsLoading(materials.length === 0); }, [materials]);
 
-  const changeClick = () => {
-    setClickFilter(!clickFilter);
-  };
+return ( <div className="container m-auto min-h-screen p-6 flex flex-col md:flex-row"> {/* Sidebar filter (responsive) */} <div className="w-full md:w-1/4 lg:w-1/5 md:mr-6 mb-6 md:mb-0"> <FilterPage /> </div>
 
-  useEffect(() => {
-    const applyFilters = () => {
-      const isFreeFilter =
-        filters.isFree === "true"
-          ? true
-          : filters.isFree === "false"
-          ? false
-          : null;
+{/* Main content */}
+  <div className="flex-1">
+    {!isLoading ? (
+      <>
+        <h1 className="text-3xl text-white font-bold text-center mb-6">
+          Available Materials
+        </h1>
+        
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {filteredMaterials.map((material) => (
+              <MaterialCard key={material._id} material={material} />
+            ))}
+            {filteredMaterials.length === 0 && "No materials found"}
+          </div>
+      </>
+    ) : (
+      <Loading message={"Fetching Materials"} />
+    )}
+  </div>
+</div>
 
-      const filteredMaterials = materials.filter((material) => {
-        return (
-          (isFreeFilter === null || material.isFree === isFreeFilter) &&
-          (filters.name === "" ||
-            material.name.toLowerCase().includes(filters.name.toLowerCase())) &&
-          (filters.materialType === "" ||
-            material.materialType === filters.materialType)
-        );
-      });
+); };
 
-      setFilteredMaterials(filteredMaterials);
-    };
+export default MaterialHub;
 
-    const timeout = setTimeout(() => {
-      applyFilters();
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [filters, materials, setFilteredMaterials]);
-
-  return (
-    <div className="w-full bg-gray-900 text-white rounded-sm p-4 shadow-lg border border-gray-700 dark:bg-gray-800 md:min-h-screen md:overflow-hidden">
-      <div className="flex flex-col items-center md:items-start text-center md:text-left">
-        {/* Toggle Filter Button */}
-        <h2
-          className="text-xl font-semibold mb-4 text-white border-2 border-white rounded-sm px-4 py-2 cursor-pointer w-32 md:w-full text-center"
-          onClick={changeClick}
-        >
-          {clickFilter ? "Apply Filters" : "Open Filters"}
-        </h2>
-
-        {/* Filters Section */}
-        {clickFilter && (
-          <>
-            <label className="mb-4 w-full">
-              <span className="text-gray-300">Free or Paid:</span>
-              <select
-                name="isFree"
-                onChange={handleFilterChange}
-                className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
-              >
-                <option value="">All</option>
-                <option value="true">Free</option>
-                <option value="false">Paid</option>
-              </select>
-            </label>
-
-            <label className="mb-4 w-full">
-              <span className="text-gray-300">Subject:</span>
-              <input
-                type="text"
-                name="name"
-                className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
-                onChange={handleFilterChange}
-                placeholder="Search by name..."
-              />
-            </label>
-
-            <label className="mb-4 w-full">
-              <span className="text-gray-300">Material Type:</span>
-              <select
-                name="materialType"
-                onChange={handleFilterChange}
-                className="ml-2 bg-gray-700 text-white border border-gray-500 rounded-md p-2 w-full"
-              >
-                <option value="">All</option>
-                <option value="pdf">PDF</option>
-                <option value="ebook">eBook</option>
-                <option value="audiobook">Audiobook</option>
-              </select>
-            </label>
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default FilterPage;
