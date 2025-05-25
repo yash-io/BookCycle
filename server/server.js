@@ -29,12 +29,12 @@ const PORT = process.env.PORT || 5000;
 app.use('/api/auth', authRouter);
 app.use('/api/materials', materialRouter);
 
-// Serve static files from the React app
+// Serve static files 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// The "catchall" handler: for any request that doesn't match one above, send back index.html
+// The "catchall" handler: index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
