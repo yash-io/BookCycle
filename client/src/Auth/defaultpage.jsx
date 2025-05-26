@@ -89,6 +89,6 @@ return (
     </div>
   </div>
 );
-
+};
 
 export default Defaultpage;
