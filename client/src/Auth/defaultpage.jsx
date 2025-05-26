@@ -15,7 +15,7 @@ const Defaultpage = () => {
       } catch (err) {
         setError(err);
       } finally {
-        setLoading(false); // Always set loading to false
+        setLoading(false);
       }
     };
     checkUser();
@@ -67,22 +67,22 @@ const Defaultpage = () => {
   }
 
 return (
-  <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 flex items-center justify-center px-4">
-    <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md text-center">
-      <h1 className="text-3xl font-extrabold mb-6 text-gray-900">Welcome to Bookcycle</h1>
-      <p className="text-gray-700 mb-8 leading-relaxed">
+  <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+    <div className="bg-gray-800 p-10 rounded-3xl shadow-2xl w-full max-w-md text-center">
+      <h1 className="text-3xl font-extrabold mb-6 text-gray-100">Welcome to Bookcycle</h1>
+      <p className="text-gray-300 mb-8 leading-relaxed">
         Bookcycle is your go-to platform for accessing a wide range of educational materials and resources.
       </p>
       <button
         onClick={() => navigate("/auth/login")}
-        className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300 mb-6"
+        className="w-full bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300 mb-6"
       >
         Log In
       </button>
-      <p className="text-gray-600 mb-4 font-medium">Don't have an account?</p>
+      <p className="text-gray-400 mb-4 font-medium">Don't have an account?</p>
       <button
         onClick={() => navigate("/auth/signup")}
-        className="w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300"
+        className="w-full bg-green-700 hover:bg-green-800 active:bg-green-900 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300"
       >
         Create an Account
       </button>
