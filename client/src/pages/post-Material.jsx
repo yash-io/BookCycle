@@ -137,7 +137,7 @@ const PostMaterial = () => {
               id="image"
               name="image"
               onChange={handleImageChange}
-              className="p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700"
+              className=" border rounded outline-none bg-gray-100 dark:bg-gray-700"
               required
             />
           </div>
