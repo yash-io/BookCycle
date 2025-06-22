@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UseMaterials from "../store/product.store";
-
+import imageCompression from 'browser-image-compression'
 const PostMaterial = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -22,18 +22,31 @@ const PostMaterial = () => {
     });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFormData({
-        ...formData,
-        image: reader.result,
-      });
-    };
-    reader.readAsDataURL(file);
-  };
+    if (!file) return;
 
+    // Compression 
+    const options = {
+      maxSizeMB: 0.1, 
+      maxWidthOrHeight: 800, 
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          image: reader.result,
+        });
+      };
+      reader.readAsDataURL(compressedFile);
+    } catch (error) {
+      console.error("Image compression error:", error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const processedData = {
