@@ -91,6 +91,8 @@ const PostMaterial = () => {
               <option value="pdf">PDF</option>
               <option value="ebook">eBook</option>
               <option value="audiobook">Audiobook</option>
+              <option value="other">other</option>
+
             </select>
           </div>
 
@@ -133,13 +135,12 @@ const PostMaterial = () => {
               Image
             </label>
             <input
-  type="file"
-  id="image"
-  name="image"
-  onChange={handleImageChange}
-  className="w-full p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700 file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-  required
-/>
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleImageChange}
+            className="w-full p-2 border rounded outline-none bg-gray-100 dark:bg-gray-700 file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
           </div>
 
           {/* Download Link */}

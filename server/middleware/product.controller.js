@@ -10,8 +10,7 @@ const addMaterial = async (req, res) => {
         !name ||
         !materialType ||
         typeof price !== 'number' ||
-        !college ||
-        !image
+        !college
       ) {
         return res.status(400).send({ message: 'Please fill all required fields' });
       }
