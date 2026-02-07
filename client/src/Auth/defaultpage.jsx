@@ -62,7 +62,16 @@ useEffect(() => {
       </svg>
       <p className="text-white text-center text-lg font-medium max-w-xs">
         Checking your previous session login, please wait...
+
+        If you are a first-time user click the button below to Signup.
       </p>
+
+      <button
+        onClick={() => navigate("/auth/signup")} 
+        className="bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition duration-300"
+      >
+        Continue to Sign Up
+      </button>
     </div>
   );
 }
@@ -71,7 +80,8 @@ useEffect(() => {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <p className="text-red-500">Error: {error.message || "Failed to load"}</p>
+        <p className="text-red-500">Error: {error.message || "Failed to load"} </p>
+        <p className="text-red-500"> It looks like your Session Expired or You are the first Time User </p>
       </div>
     );
   }
