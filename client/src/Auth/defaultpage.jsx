@@ -81,6 +81,7 @@ useEffect(() => {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <p className="text-red-500">Error: {error.message || "Failed to load"} </p>
+        <br>
         <p className="text-red-500"> It looks like your Session Expired or You are the first Time User </p>
       </div>
     );
