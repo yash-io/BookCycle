@@ -20,7 +20,7 @@ const Defaultpage = () => {
 useEffect(() => {
   const checkUser = async () => {
     try {
-      await withTimeout(fetchUser(), 5000);
+      await withTimeout(fetchUser(), 15000);
     } catch (err) {
       setError(err);
     } finally {
