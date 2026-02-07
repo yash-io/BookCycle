@@ -8,18 +8,28 @@ const Defaultpage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        await fetchUser();
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkUser();
-  }, []);
+  const withTimeout = (promise, ms) => {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Request timed out")), ms)
+    ),
+  ]);
+};
+
+useEffect(() => {
+  const checkUser = async () => {
+    try {
+      await withTimeout(fetchUser(), 5000);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  checkUser();
+}, []);
 
   useEffect(() => {
     if (!loading && user) {
